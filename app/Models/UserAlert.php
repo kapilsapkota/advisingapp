@@ -8,7 +8,11 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperUserAlert
+ */
 class UserAlert extends Model
 {
     use HasFactory;
@@ -41,7 +45,7 @@ class UserAlert extends Model
         'users.name',
     ];
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
