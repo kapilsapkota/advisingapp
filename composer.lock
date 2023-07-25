@@ -362,10 +362,10 @@
             "dist": {
                 "type": "path",
                 "url": "app-modules/case-module",
-                "reference": "fe0568e37771f906330c25899aa3aba14652fc39"
+                "reference": "91b09b77cf4fb2c862a9c7204b79461c6e5d929c"
             },
             "require": {
-                "filament/filament": "v3.0.0-beta10"
+                "filament/filament": "^3.0@beta"
             },
             "type": "library",
             "extra": {
