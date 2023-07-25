@@ -4,7 +4,6 @@ namespace Assist\CaseModule\Database\Factories;
 
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Institution;
 use Assist\CaseModule\Models\CaseItem;
 use Assist\CaseModule\Models\CaseItemStatus;
 use Assist\CaseModule\Models\CaseItemPriority;
@@ -25,10 +24,10 @@ class CaseItemFactory extends Factory
             },
             'close_details' => $this->faker->sentence(),
             'res_details' => $this->faker->sentence(),
-            'institution_id' => Institution::factory(),
-            'state_id' => CaseItemStatus::factory(),
+            'institution_id' => 1,
+            'state_id' => 1,
             'type_id' => $this->faker->randomNumber(9),
-            'priority_id' => CaseItemPriority::factory(),
+            'priority_id' => 1,
             'assigned_to_id' => User::factory(),
             'created_by_id' => $this->faker->randomNumber(9),
         ];
