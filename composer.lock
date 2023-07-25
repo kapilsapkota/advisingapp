@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a5f88c47a68718d0f17012dc29f51d4",
+    "content-hash": "16fc2b54f2da6b1c49aaa049e581a083",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -355,6 +355,38 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "canyon-gbs/case-module",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/case-module",
+                "reference": "5c290f19b9171ac22adcb85766ac8e050c75c441"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Assist\\CaseModule\\Providers\\CaseModuleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Assist\\CaseModule\\": "src/",
+                    "Assist\\CaseModule\\Tests\\": "tests/",
+                    "Assist\\CaseModule\\Database\\Factories\\": "database/factories/",
+                    "Assist\\CaseModule\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "composer/ca-bundle",
