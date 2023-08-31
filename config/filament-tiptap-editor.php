@@ -75,7 +75,7 @@ return [
     'accepted_file_types' => ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf'],
     'disk' => 's3',
     'directory' => 'kb-images',
-    'visibility' => 'public',
+    'visibility' => 'private',
     'preserve_file_names' => false,
     'max_file_size' => 2042,
     'image_crop_aspect_ratio' => null,
