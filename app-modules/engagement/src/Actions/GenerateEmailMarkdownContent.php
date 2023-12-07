@@ -41,17 +41,44 @@ class GenerateEmailMarkdownContent
     public function __invoke(array $content, array $mergeData = [], string $markdown = ''): string
     {
         foreach ($content as $component) {
+            $alignment = $component['attrs']['textAlign'] ?? null;
+
+            if ($alignment) {
+                $markdown .= PHP_EOL . PHP_EOL . '<div style="text-align: ' . $alignment . ';">';
+            }
+
             $markdown .= match ($component['type']) {
-                'bulletList', 'paragraph' => PHP_EOL . PHP_EOL . $this($component['content'] ?? [], $mergeData),
+                'bulletList' => PHP_EOL . PHP_EOL . $this($component['content'] ?? [], $mergeData),
+                'paragraph' => (function () use ($component, $mergeData): string {
+                    $paragraph = '';
+
+                    $alignment = $component['attrs']['textAlign'] ?? null;
+
+                    if ($alignment) {
+                        $paragraph .= '<p style="text-align: ' . $alignment . ';">';
+                    }
+
+                    $paragraph .= $this($component['content'] ?? [], $mergeData);
+
+                    if ($alignment) {
+                        $paragraph .= '</p>';
+                    }
+
+                    return PHP_EOL . PHP_EOL . $paragraph;
+                })(),
                 'doc' => $this($component['content'], $mergeData),
                 'heading' => PHP_EOL . PHP_EOL . str_repeat('#', $component['attrs']['level'] ?? 1) . ' ' . $this($component['content'] ?? [], $mergeData),
                 'horizontalRule' => PHP_EOL . PHP_EOL . '---',
-                'image' => ' ' . '![' . ($component['attrs']['alt'] ?? '') . '](' . ($component['attrs']['src'] ?? '') . ')',
+                'image' => ' ' . '<img src="' . ($component['attrs']['src'] ?? '') . '" alt="' . ($component['attrs']['alt'] ?? '') . '" />',
                 'listItem' => PHP_EOL . '- ' . $this($component['content'] ?? [], $mergeData),
                 'mergeTag' => ' ' . $this->text($mergeData[$component['attrs']['id'] ?? null] ?? '', $component),
                 'orderedList' => PHP_EOL . PHP_EOL . $this->orderedList($component, $mergeData),
                 'text' => ' ' . $this->text($component['text'] ?? '', $component),
             };
+
+            if ($alignment) {
+                $markdown .= PHP_EOL . PHP_EOL . '</div>';
+            }
         }
 
         return trim($markdown);
