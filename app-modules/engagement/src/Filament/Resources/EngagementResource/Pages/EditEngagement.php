@@ -76,6 +76,9 @@ class EditEngagement extends EditRecord
                     ->placeholder(__('Subject'))
                     ->columnSpanFull(),
                 TiptapEditor::make('body_json')
+                    ->disk('s3-public')
+                    ->visibility('public')
+                    ->directory('editor-images/engagements')
                     ->label('Body')
                     ->mergeTags([
                         'student full name',
