@@ -81,7 +81,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->name('api.v1.');
 
-            collect((new Filesystem())->files(base_path('app-modules/*/routes/V1')))->each(fn ($file) => $versionedApis->group($file->getPathname()));
+            collect((new Filesystem())->files(base_path('app-modules/*/routes/V1')))
+                ->each(fn ($file) => $versionedApis->group($file->getPathname()));
 
             Route::middleware('web')
                 ->namespace($this->namespace)
