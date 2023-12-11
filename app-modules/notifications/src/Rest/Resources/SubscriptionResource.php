@@ -49,7 +49,7 @@ class SubscriptionResource extends RestResource
             BelongsTo::make('user', UserResource::class)
                 ->requiredOnCreation(),
             MorphTo::make('subscribable', [
-                // ProspectResource::class,
+                ProspectResource::class,
                 StudentResource::class,
             ])->requiredOnCreation(),
         ];
