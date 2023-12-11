@@ -2,6 +2,10 @@
 
 namespace AdvisingApp\Notifications\Rest\Resources;
 
+use App\Models\User;
+use App\Rest\Resources\UserResource;
+use Illuminate\Validation\Rule;
+use Lomkit\Rest\Relations\BelongsTo;
 use Lomkit\Rest\Relations\MorphTo;
 use App\Rest\Resource as RestResource;
 use Lomkit\Rest\Http\Requests\RestRequest;
@@ -17,9 +21,9 @@ class SubscriptionResource extends RestResource
     {
         return [
             'id',
-            'user_id', //TODO: should be User relation when we have a user api
-            'subscribable_id',
-            'subscribable_type',
+            // 'user_id',
+            // 'subscribable_id',
+            // 'subscribable_type',
             'created_at',
             'updated_at',
         ];
@@ -27,7 +31,11 @@ class SubscriptionResource extends RestResource
 
     public function createRules(RestRequest $request): array
     {
-        return [];
+        return [
+            'id' => ['missing'],
+            'created_at' => ['missing'],
+            'updated_at' => ['missing'],
+        ];
     }
 
     public function updateRules(RestRequest $request): array
@@ -38,10 +46,12 @@ class SubscriptionResource extends RestResource
     public function relations(RestRequest $request): array
     {
         return [
+            BelongsTo::make('user', UserResource::class)
+                ->requiredOnCreation(),
             MorphTo::make('subscribable', [
-                ProspectResource::class,
+                // ProspectResource::class,
                 StudentResource::class,
-            ]),
+            ])->requiredOnCreation(),
         ];
     }
 
